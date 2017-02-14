@@ -10,10 +10,10 @@ BUILT_LANGUAGES += C++
 # Clean target
 
 clean_cc:
-	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)cvrptw_lib.$(LIB_SUFFIX)
-	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)dimacs.$(LIB_SUFFIX)
+	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)cvrptw_libD.$(LIB_SUFFIX)
+	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)dimacsD.$(LIB_SUFFIX)
 	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)fz.$(LIB_SUFFIX)
-	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)ortools.$(LIB_SUFFIX)
+	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX)
 	-$(DEL) $(LIB_DIR)$S$(LIB_PREFIX)*.a
 	-$(DEL) $(OBJ_DIR)$S*.$O
 	-$(DEL) $(OBJ_DIR)$Salgorithms$S*.$O
@@ -56,36 +56,36 @@ clean_compat:
 
 include $(OR_ROOT)makefiles/Makefile.gen.mk
 
-OR_TOOLS_LIBS = $(LIB_DIR)/$(LIB_PREFIX)ortools.$(LIB_SUFFIX)
-OR_TOOLS_LNK = $(PRE_LIB)ortools$(POST_LIB)
+OR_TOOLS_LIBS = $(LIB_DIR)/$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX)
+OR_TOOLS_LNK = $(PRE_LIB)ortoolsD$(POST_LIB)
 ortoolslibs: $(OR_TOOLS_LIBS)
 
 # Specific libraries for examples, and flatzinc.
 
-CVRPTW_LIBS   = $(LIB_DIR)/$(LIB_PREFIX)cvrptw_lib.$(LIB_SUFFIX)
+CVRPTW_LIBS   = $(LIB_DIR)/$(LIB_PREFIX)cvrptw_libD.$(LIB_SUFFIX)
 CVRPTW_DEPS = \
 	$(EX_DIR)/cpp/cvrptw_lib.h \
 	$(ROUTING_DEPS)
-CVRPTW_LNK = $(PRE_LIB)cvrptw_lib$(POST_LIB) $(OR_TOOLS_LNK)
+CVRPTW_LNK = $(PRE_LIB)cvrptw_libD$(POST_LIB) $(OR_TOOLS_LNK)
 cvrptwlibs: $(CVRPTW_LIBS)
 
 
-DIMACS_LIBS   = $(LIB_DIR)/$(LIB_PREFIX)dimacs.$(LIB_SUFFIX)
+DIMACS_LIBS   = $(LIB_DIR)/$(LIB_PREFIX)dimacsD.$(LIB_SUFFIX)
 DIMACS_DEPS = \
 	$(EX_DIR)/cpp/parse_dimacs_assignment.h \
 	$(EX_DIR)/cpp/print_dimacs_assignment.h \
 	$(GRAPH_DEPS)
-DIMACS_LNK = $(PRE_LIB)dimacs$(POST_LIB) $(OR_TOOLS_LNK)
+DIMACS_LNK = $(PRE_LIB)dimacsD$(POST_LIB) $(OR_TOOLS_LNK)
 dimacslibs: $(DIMACS_LIBS)
 
-FAP_LIBS = $(LIB_DIR)/$(LIB_PREFIX)fap.$(LIB_SUFFIX)
+FAP_LIBS = $(LIB_DIR)/$(LIB_PREFIX)fapD.$(LIB_SUFFIX)
 FAP_DEPS = \
 	$(EX_DIR)/cpp/fap_model_printer.h \
 	$(EX_DIR)/cpp/fap_parser.h \
 	$(EX_DIR)/cpp/fap_utilities.h \
 	$(CP_DEPS) \
 	$(LP_DEPS)
-FAP_LNK = $(PRE_LIB)fap$(POST_LIB) $(OR_TOOLS_LNK)
+FAP_LNK = $(PRE_LIB)fapD$(POST_LIB) $(OR_TOOLS_LNK)
 faplibs: $(FAP_LIBS)
 
 
@@ -159,8 +159,8 @@ CVRPTW_OBJS=\
 $(OBJ_DIR)/cvrptw_lib.$O: $(EX_DIR)/cpp/cvrptw_lib.cc $(EX_DIR)/cpp/cvrptw_lib.h $(ROUTING_DEPS)
 	$(CCC) $(CFLAGS) -c $(EX_DIR)$Scpp/cvrptw_lib.cc $(OBJ_OUT)$(OBJ_DIR)$Scvrptw_lib.$O
 
-$(LIB_DIR)/$(LIB_PREFIX)cvrptw_lib.$(LIB_SUFFIX): $(CVRPTW_OBJS)
-	$(LINK_CMD) $(LINK_PREFIX)$(LIB_DIR)$S$(LIB_PREFIX)cvrptw_lib.$(LIB_SUFFIX) $(CVRPTW_OBJS)
+$(LIB_DIR)/$(LIB_PREFIX)cvrptw_libD.$(LIB_SUFFIX): $(CVRPTW_OBJS)
+	$(LINK_CMD) $(LINK_PREFIX)$(LIB_DIR)$S$(LIB_PREFIX)cvrptw_libD.$(LIB_SUFFIX) $(CVRPTW_OBJS)
 
 # DIMACS challenge problem format library
 
@@ -170,8 +170,8 @@ DIMACS_OBJS=\
 $(OBJ_DIR)/parse_dimacs_assignment.$O: $(EX_DIR)/cpp/parse_dimacs_assignment.cc
 	$(CCC) $(CFLAGS) -c $(EX_DIR)$Scpp/parse_dimacs_assignment.cc $(OBJ_OUT)$(OBJ_DIR)$Sparse_dimacs_assignment.$O
 
-$(LIB_DIR)/$(LIB_PREFIX)dimacs.$(LIB_SUFFIX): $(DIMACS_OBJS)
-	$(LINK_CMD) $(LINK_PREFIX)$(LIB_DIR)$S$(LIB_PREFIX)dimacs.$(LIB_SUFFIX) $(DIMACS_OBJS)
+$(LIB_DIR)/$(LIB_PREFIX)dimacsD.$(LIB_SUFFIX): $(DIMACS_OBJS)
+	$(LINK_CMD) $(LINK_PREFIX)$(LIB_DIR)$S$(LIB_PREFIX)dimacsD.$(LIB_SUFFIX) $(DIMACS_OBJS)
 
 # FAP challenge problem format library
 
@@ -187,8 +187,8 @@ $(OBJ_DIR)/fap_parser.$O: $(EX_DIR)/cpp/fap_parser.cc
 $(OBJ_DIR)/fap_utilities.$O: $(EX_DIR)/cpp/fap_utilities.cc
 	$(CCC) $(CFLAGS) -c $(EX_DIR)$Scpp$Sfap_utilities.cc $(OBJ_OUT)$(OBJ_DIR)$Sfap_utilities.$O
 
-$(LIB_DIR)/$(LIB_PREFIX)fap.$(LIB_SUFFIX): $(FAP_OBJS)
-	$(LINK_CMD) $(LINK_PREFIX)$(LIB_DIR)$S$(LIB_PREFIX)fap.$(LIB_SUFFIX) $(FAP_OBJS)
+$(LIB_DIR)/$(LIB_PREFIX)fapD.$(LIB_SUFFIX): $(FAP_OBJS)
+	$(LINK_CMD) $(LINK_PREFIX)$(LIB_DIR)$S$(LIB_PREFIX)fapD.$(LIB_SUFFIX) $(FAP_OBJS)
 
 # Flatzinc code
 
@@ -614,7 +614,7 @@ $(BIN_DIR)/sat_runner$E: $(OR_TOOLS_LIBS) $(OBJ_DIR)/sat/sat_runner.$O
 
 # OR Tools unique library.
 
-$(LIB_DIR)/$(LIB_PREFIX)ortools.$(LIB_SUFFIX): \
+$(LIB_DIR)/$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX): \
     $(BASE_LIB_OBJS) \
     $(UTIL_LIB_OBJS) \
     $(LP_DATA_LIB_OBJS) \
@@ -626,7 +626,7 @@ $(LIB_DIR)/$(LIB_PREFIX)ortools.$(LIB_SUFFIX): \
     $(LP_LIB_OBJS) \
     $(CP_LIB_OBJS)
 	$(LINK_CMD) \
-	  $(LDOUT)$(LIB_DIR)$S$(LIB_PREFIX)ortools.$(LIB_SUFFIX) \
+	  $(LDOUT)$(LIB_DIR)$S$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX) \
 	  $(BASE_LIB_OBJS) \
 	  $(UTIL_LIB_OBJS) \
 	  $(LP_DATA_LIB_OBJS) \

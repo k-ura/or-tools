@@ -141,7 +141,7 @@ ifeq ("$(SYSTEM)","win")
   endif
 
   # Third party specific
-  CBC_PLATFORM = $(CBC_PLATFORM_PREFIX)-$(VS_RELEASE)-Release
+  CBC_PLATFORM = $(CBC_PLATFORM_PREFIX)-$(VS_RELEASE)-Debug
   SCIP_MAKEFILE = \# SCIP not compiled
 
   # Java specific

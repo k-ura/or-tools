@@ -1,7 +1,7 @@
 
 archive: $(INSTALL_DIR)$(ARCHIVE_EXT)
 
-$(INSTALL_DIR)$(ARCHIVE_EXT): $(LIB_DIR)$S$(LIB_PREFIX)ortools.$(LIB_SUFFIX) csharp java create_dirs cc_archive dotnet_archive java_archive  $(PATCHELF)
+$(INSTALL_DIR)$(ARCHIVE_EXT): $(LIB_DIR)$S$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX) csharp java create_dirs cc_archive dotnet_archive java_archive  $(PATCHELF)
 ifeq "$(SYSTEM)" "win"
 	cd temp && ..$Stools$Szip.exe -r ..$S$(INSTALL_DIR).zip $(INSTALL_DIR)
 else
@@ -65,10 +65,10 @@ create_dirs:
 
 cc_archive: cc
 
-	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)cvrptw_lib.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
-	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)dimacs.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
-	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)ortools.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
-	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)fap.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
+	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)cvrptw_libD.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
+	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)dimacsD.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
+	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
+	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)fapD.$(LIB_SUFFIX) temp$S$(INSTALL_DIR)$Slib
 	$(COPY) examples$Scpp$S*.cc temp$S$(INSTALL_DIR)$Sexamples$Scpp
 	$(COPY) examples$Scpp$S*.h temp$S$(INSTALL_DIR)$Sexamples$Scpp
 	$(COPY) src$Salgorithms$S*.h temp$S$(INSTALL_DIR)$Sinclude$Salgorithms
@@ -152,7 +152,7 @@ fz_archive: cc fz
 	mkdir $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)$Sexamples
 	$(COPY) LICENSE-2.0.txt $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)
 	$(COPY) bin$Sfz$E $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)$Sbin$Sfzn-or-tools$E
-	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)ortools.$(LIB_SUFFIX) $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)$Slib
+	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX) $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)$Slib
 	$(COPY) $(LIB_DIR)$S$(LIB_PREFIX)fz.$(LIB_SUFFIX) $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)$Slib
 	$(COPY) src$Sflatzinc$Smznlib_cp$S* $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)$Sshare$Sminizinc_cp
 	$(COPY) src$Sflatzinc$Smznlib_sat$S* $(TEMP_FZ_DIR)$S$(FZ_INSTALL_DIR)$Sshare$Sminizinc_sat

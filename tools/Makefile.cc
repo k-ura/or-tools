@@ -44,10 +44,10 @@ ifeq ("$(SYSTEM)","unix")
 	OS = $(shell uname -s)
 	LIB_PREFIX = lib
 	PRE_LIB = -Wl,-rpath $(OR_TOOLS_TOP)/lib -L$(OR_TOOLS_TOP)/lib
-	OR_TOOLS_LNK = $(PRE_LIB) -lortools
-	CVRPTW_LNK = $(PRE_LIB) -lcvrptw_lib $(PRE_LIB) -lortools
-	DIMACS_LNK = $(PRE_LIB) -ldimacs $(PRE_LIB) -lortools
-	FAP_LNK = $(PRE_LIB) -lfap $(PRE_LIB) -lortools
+	OR_TOOLS_LNK = $(PRE_LIB) -lortoolsD
+	CVRPTW_LNK = $(PRE_LIB) -lcvrptw_libD $(PRE_LIB) -lortoolsD
+	DIMACS_LNK = $(PRE_LIB) -ldimacsD $(PRE_LIB) -lortoolsD
+	FAP_LNK = $(PRE_LIB) -lfapD $(PRE_LIB) -lortoolsD
 	ifeq ($(OS),Linux)
 		CPP_COMPILER = g++
 		CCC = $(CPP_COMPILER) -fPIC -std=c++0x
@@ -87,7 +87,7 @@ ifeq ("$(SYSTEM)","unix")
 	CBC_INC = -DUSE_CBC
 	GLOP_INC = -DUSE_GLOP
 	BOP_INT = -DUSE_BOP
-	DEBUG = -O4 -DNDEBUG
+	DEBUG = -O4 -DDEBUG
 	CFLAGS = $(DEBUG) -I$(INC_DIR) -I$(INC_EX_DIR) $(ARCH) -Wno-deprecated \
 		$(CBC_INC) $(CLP_INC) $(GLOP_INC) $(BOP_INC)
 	WHICH = which
@@ -121,9 +121,9 @@ ifeq ("$(SYSTEM)","win")
 	LIB_PREFIX =
 	PRE_LIB =
 	LIB_SUFFIX = lib
-	OR_TOOLS_LNK = lib\\ortools.lib
-	CVRPTW_LNK = lib\\cvrptw_lib.lib lib\\ortools.lib
-	DIMACS_LNK = lib\\dimacs.lib lib\\ortools.lib
+	OR_TOOLS_LNK = lib\\ortoolsD.lib
+	CVRPTW_LNK = lib\\cvrptw_libD.lib lib\\ortoolsD.lib
+	DIMACS_LNK = lib\\dimacsD.lib lib\\ortoolsD.lib
 	O=obj
 	E=.exe
 	OBJ_OUT = /Fo
@@ -131,19 +131,19 @@ ifeq ("$(SYSTEM)","win")
 	DEL = del
 	S = \\
 	CPSEP = ;
-	DEBUG=/O2 -DNDEBUG
+	DEBUG=/O2 -DDEBUG
 	CPP_COMPILER = cl
-	CCC = $(CPP_COMPILER) /EHsc /MD /nologo
+	CCC = $(CPP_COMPILER) /EHsc /MDd /nologo
 	CSC=csc
 	MONO=
 	WHICH = where
 	TO_NULL = 2> NUL
 endif
 
-OR_TOOLS_LIBS = $(LIB_DIR)/$(LIB_PREFIX)ortools.$(LIB_SUFFIX)
-CVRPTW_LIBS = $(LIB_DIR)/$(LIB_PREFIX)cvrptw_lib.$(LIB_SUFFIX)
-DIMACS_LIBS = $(LIB_DIR)/$(LIB_PREFIX)dimacs.$(LIB_SUFFIX)
-FAP_LIBS = $(LIB_DIR)/$(LIB_PREFIX)fap.$(LIB_SUFFIX)
+OR_TOOLS_LIBS = $(LIB_DIR)/$(LIB_PREFIX)ortoolsD.$(LIB_SUFFIX)
+CVRPTW_LIBS = $(LIB_DIR)/$(LIB_PREFIX)cvrptw_libD.$(LIB_SUFFIX)
+DIMACS_LIBS = $(LIB_DIR)/$(LIB_PREFIX)dimacsD.$(LIB_SUFFIX)
+FAP_LIBS = $(LIB_DIR)/$(LIB_PREFIX)fapD.$(LIB_SUFFIX)
 
 .PHONY: all clean test
 
