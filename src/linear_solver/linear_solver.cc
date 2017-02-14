@@ -909,7 +909,8 @@ std::string PrettyPrintVar(const MPVariable& var) {
   const std::string prefix = "Variable '" + var.name() + "': domain = ";
   if (var.lb() >= MPSolver::infinity() || var.ub() <= -MPSolver::infinity() ||
       var.lb() > var.ub()) {
-    return prefix + "∅";  // Empty set.
+    //return prefix + "∅";  // Empty set.
+    return prefix + "(PHI)";  // Empty set.
   }
   // Special case: integer variable with at most two possible values
   // (and potentially none).
@@ -917,7 +918,8 @@ std::string PrettyPrintVar(const MPVariable& var) {
     const int64 lb = static_cast<int64>(ceil(var.lb()));
     const int64 ub = static_cast<int64>(floor(var.ub()));
     if (lb > ub) {
-      return prefix + "∅";
+      //return prefix + "∅";
+      return prefix + "(PHI)";
     } else if (lb == ub) {
       return StringPrintf("%s{ %lld }", prefix.c_str(), lb);
     } else {
@@ -929,10 +931,12 @@ std::string PrettyPrintVar(const MPVariable& var) {
     return StringPrintf("%s{ %f }", prefix.c_str(), var.lb());
   }
   return prefix + (var.integer() ? "Integer" : "Real") + " in " +
-         (var.lb() <= -MPSolver::infinity() ? std::string("]-∞")
+         //(var.lb() <= -MPSolver::infinity() ? std::string("]-∞")
+         (var.lb() <= -MPSolver::infinity() ? std::string("]-(INFINITY)")
                                             : StringPrintf("[%f", var.lb())) +
          ", " +
-         (var.ub() >= MPSolver::infinity() ? std::string("+∞[")
+         //(var.ub() >= MPSolver::infinity() ? std::string("+∞[")
+         (var.ub() >= MPSolver::infinity() ? std::string("+(INFINITY)[")
                                            : StringPrintf("%f]", var.ub()));
 }
 
